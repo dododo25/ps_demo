@@ -3,7 +3,7 @@ package com.proxyseller.test.controller
 import com.proxyseller.test.model.FavouritePost
 import com.proxyseller.test.service.FavouritePostService
 import com.proxyseller.test.service.PostService
-import com.proxyseller.test.service.UserDataService
+import com.proxyseller.test.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
@@ -14,23 +14,23 @@ class FavouritePostController {
     FavouritePostService favouritePostService
 
     @Autowired
-    UserDataService userDataService
+    UserService userDataService
 
     @Autowired
     PostService postService
 
     @RequestMapping(method = RequestMethod.GET, path = '/users/{userId}/favourites')
     @ResponseBody
-    def getAllUserFavouritePosts(@PathVariable('userId') int userId) {
+    def getAllUserFavouritePosts(@PathVariable('userId') String userId) {
         return favouritePostService.findAllPostsByUserId(userId)
     }
 
     @RequestMapping(method = RequestMethod.POST, path = '/users/{userId}/favourites')
     @ResponseBody
-    def addUserFavouritePost(@PathVariable('userId') int userId, @RequestParam('postId') long postId) {
+    def addUserFavouritePost(@PathVariable('userId') String userId, @RequestParam('postId') String postId) {
         FavouritePost favouritePost = new FavouritePost()
 
-        favouritePost.setUserData(userDataService.findById(userId)
+        favouritePost.setUser(userDataService.findById(userId)
                 .orElseThrow())
         favouritePost.setPost(postService.findById(postId)
                 .orElseThrow())
@@ -40,7 +40,14 @@ class FavouritePostController {
 
     @RequestMapping(method = RequestMethod.DELETE, path = '/users/{userId}/favourites')
     @ResponseBody
-    def deleteUserFavouritePost(@PathVariable('userId') int userId, @RequestParam('postId') int postId) {
-        favouritePostService.delete(userId, postId)
+    def deleteUserFavouritePost(@PathVariable('userId') String userId, @RequestParam('postId') String postId) {
+        FavouritePost favouritePost = new FavouritePost()
+
+        favouritePost.setUser(userDataService.findById(userId)
+                .orElseThrow())
+        favouritePost.setPost(postService.findById(postId)
+                .orElseThrow())
+
+        favouritePostService.delete(favouritePost)
     }
 }

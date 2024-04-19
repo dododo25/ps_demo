@@ -2,7 +2,7 @@ package com.proxyseller.test.controller
 
 import com.proxyseller.test.model.Post
 import com.proxyseller.test.service.PostService
-import com.proxyseller.test.service.UserDataService
+import com.proxyseller.test.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PathVariable
@@ -18,7 +18,7 @@ class PostController {
     PostService postService
 
     @Autowired
-    UserDataService userDataService
+    UserService userDataService
 
     @RequestMapping(method = RequestMethod.GET, path = '/posts')
     @ResponseBody
@@ -28,33 +28,33 @@ class PostController {
 
     @RequestMapping(method = RequestMethod.GET, path = '/posts/{id}')
     @ResponseBody
-    Post getPost(@PathVariable('id') int id) {
+    Post getPost(@PathVariable('id') String id) {
         return postService.findById(id).orElseThrow()
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = '/posts/{id}')
     @ResponseBody
-    Post editPost(@PathVariable('id') int id, @RequestBody Post post) {
+    Post editPost(@PathVariable('id') String id, @RequestBody Post post) {
         post.id = id
         return postService.save(post)
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = '/posts/{id}')
     @ResponseBody
-    void deletePost(@PathVariable('id') int id) {
+    void deletePost(@PathVariable('id') String id) {
         postService.deleteById(id)
     }
 
     @RequestMapping(method = RequestMethod.GET, path = '/users/{userId}/posts')
     @ResponseBody
-    List<Post> getAllUserPosts(@PathVariable('userId') int userId) {
+    List<Post> getAllUserPosts(@PathVariable('userId') String userId) {
         return postService.findAllByUserId(userId)
     }
 
     @RequestMapping(method = RequestMethod.POST, path = '/users/{userId}/posts')
     @ResponseBody
-    Post addPost(@PathVariable('userId') int userId, @RequestBody Post post) {
-        post.userData = userDataService.findById(userId)
+    Post addPost(@PathVariable('userId') String userId, @RequestBody Post post) {
+        post.author = userDataService.findById(userId)
                 .orElseThrow()
         return postService.save(post)
     }

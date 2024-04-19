@@ -3,7 +3,7 @@ package com.proxyseller.test.controller
 import com.proxyseller.test.model.Comment
 import com.proxyseller.test.service.CommentService
 import com.proxyseller.test.service.PostService
-import com.proxyseller.test.service.UserDataService
+import com.proxyseller.test.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PathVariable
@@ -23,7 +23,7 @@ class CommentController {
     PostService postService
 
     @Autowired
-    UserDataService userDataService
+    UserService userDataService
 
     @RequestMapping(method = RequestMethod.GET, path = '/comments')
     @ResponseBody
@@ -33,41 +33,41 @@ class CommentController {
 
     @RequestMapping(method = RequestMethod.GET, path = '/comments/{id}')
     @ResponseBody
-    Comment getComment(@PathVariable('id') int id) {
+    Comment getComment(@PathVariable('id') String id) {
         return commentService.findById(id).orElseThrow()
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = '/comments/{id}')
     @ResponseBody
-    Comment editComment(@PathVariable('id') int id, @RequestBody Comment comment) {
+    Comment editComment(@PathVariable('id') String id, @RequestBody Comment comment) {
         comment.id = id
         return commentService.save(comment)
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = '/comments/{id}')
     @ResponseBody
-    void deleteComment(@PathVariable('id') int id) {
+    void deleteComment(@PathVariable('id') String id) {
         commentService.deleteById(id)
     }
 
     @RequestMapping(method = RequestMethod.GET, path = '/users/{userId}/comments')
     @ResponseBody
-    List<Comment> getAllUserComments(@PathVariable('userId') int userId) {
+    List<Comment> getAllUserComments(@PathVariable('userId') String userId) {
         return commentService.findAllByUserId(userId)
     }
 
     @RequestMapping(method = RequestMethod.GET, path = '/posts/{postId}/comments')
     @ResponseBody
-    List<Comment> getAllPostComments(@PathVariable('postId') int postId) {
+    List<Comment> getAllPostComments(@PathVariable('postId') String postId) {
         return commentService.findAllByPostId(postId)
     }
 
     @RequestMapping(method = RequestMethod.POST, path = '/posts/{postId}/comments')
     @ResponseBody
-    Comment addComment(@RequestParam('userId') int userId,
-                       @PathVariable('postId') int postId,
+    Comment addComment(@RequestParam('userId') String userId,
+                       @PathVariable('postId') String postId,
                        @RequestBody Comment comment) {
-        comment.userData = userDataService.findById(userId)
+        comment.commenter = userDataService.findById(userId)
                 .orElseThrow()
         comment.post = postService.findById(postId)
                 .orElseThrow()

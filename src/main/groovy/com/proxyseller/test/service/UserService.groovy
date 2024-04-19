@@ -1,29 +1,29 @@
 package com.proxyseller.test.service
 
-import com.proxyseller.test.model.UserData
-import com.proxyseller.test.repository.UserDataRepository
+import com.proxyseller.test.model.User
+import com.proxyseller.test.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class UserDataService {
+class UserService {
 
     @Autowired
-    private UserDataRepository repository
+    private UserRepository repository
 
-    List<UserData> findAll() {
+    List<User> findAll() {
         return repository.findAll()
     }
 
-    Optional<UserData> findById(long id) {
+    Optional<User> findById(String id) {
         return repository.findById(id)
     }
 
-    UserData save(UserData entity) {
+    User save(User entity) {
         return repository.save(entity)
     }
 
-    void deleteById(long id) {
+    void deleteById(String id) {
         repository.deleteById(id)
     }
 }

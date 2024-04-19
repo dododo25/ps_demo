@@ -15,15 +15,15 @@ class CommentService {
         return repository.findAll()
     }
 
-    List<Comment> findAllByPostId(long id) {
+    List<Comment> findAllByPostId(String id) {
         return repository.findAllByPostId(id)
     }
 
-    List<Comment> findAllByUserId(long id) {
+    List<Comment> findAllByUserId(String id) {
         return repository.findAllByUserId(id)
     }
 
-    Optional<Comment> findById(long id) {
+    Optional<Comment> findById(String id) {
         return repository.findById(id)
     }
 
@@ -31,7 +31,7 @@ class CommentService {
         return repository.save(entity)
     }
 
-    void deleteById(long id) {
+    void deleteById(String id) {
         repository.deleteById(id)
     }
 }

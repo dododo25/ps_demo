@@ -15,11 +15,11 @@ class PostService {
         return repository.findAll()
     }
 
-    List<Post> findAllByUserId(long id) {
-        return repository.findAllByUserId(id)
+    List<Post> findAllByUserId(String userId) {
+        return repository.findAllByUserId(userId)
     }
 
-    Optional<Post> findById(long id) {
+    Optional<Post> findById(String id) {
         return repository.findById(id)
     }
 
@@ -27,7 +27,7 @@ class PostService {
         return repository.save(entity)
     }
 
-    void deleteById(long id) {
+    void deleteById(String id) {
         repository.deleteById(id)
     }
 }

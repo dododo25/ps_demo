@@ -16,15 +16,18 @@ class FavouritePostService {
         return repository.findAll()
     }
 
-    List<Post> findAllPostsByUserId(long id) {
+    List<Post> findAllPostsByUserId(String id) {
         return repository.findAllByUserId(id)
+                .stream()
+                .map { it.post }
+                .toList()
     }
 
     FavouritePost save(FavouritePost entity) {
         return repository.save(entity)
     }
 
-    void delete(long userId, long postId) {
-        repository.delete(userId, postId)
+    void delete(FavouritePost entity) {
+        repository.delete(entity)
     }
 }

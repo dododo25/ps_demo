@@ -1,8 +1,8 @@
 package com.proxyseller.test.controller
 
-import com.proxyseller.test.model.UserData
+import com.proxyseller.test.model.User
 
-import com.proxyseller.test.service.UserDataService
+import com.proxyseller.test.service.UserService
 import org.apache.commons.codec.digest.DigestUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class UserDataController {
+class UserController {
 
     @Autowired
-    UserDataService service
+    UserService service
 
     @RequestMapping(method = RequestMethod.GET, path = '/users')
     @ResponseBody
@@ -26,7 +26,7 @@ class UserDataController {
 
     @RequestMapping(method = RequestMethod.GET, path = '/users/{id}')
     @ResponseBody
-    def getUserData(@PathVariable('id') int id) {
+    def getUserData(@PathVariable('id') String id) {
         return service.findById(id).orElseThrow()
     }
 
@@ -34,26 +34,24 @@ class UserDataController {
     @ResponseBody
     def addUserData(@RequestBody UserDataEntry data) {
         String passwordHash = DigestUtils.sha256Hex(data.password)
-        return service.save(new UserData(name: data.name, passwordHash: passwordHash))
+        return service.save(new User(name: data.name, passwordHash: passwordHash))
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = '/users/{id}')
     @ResponseBody
-    def editUserData(@PathVariable('id') int id, @RequestBody UserDataEntry data) {
+    def editUserData(@PathVariable('id') String id, @RequestBody UserDataEntry data) {
         String passwordHash = DigestUtils.sha256Hex(data.password)
-        return service.save(new UserData(id: id, name: data.name, passwordHash: passwordHash))
+        return service.save(new User(id: id, name: data.name, passwordHash: passwordHash))
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = '/users/{id}')
     @ResponseBody
-    def deleteUserData(@PathVariable('id') int id) {
+    def deleteUserData(@PathVariable('id') String id) {
         service.deleteById(id)
     }
 
     private static class UserDataEntry {
-
         String name
         String password
-
     }
 }
