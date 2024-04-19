@@ -6,6 +6,8 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.OneToMany
 
 @Entity
 class UserData {
@@ -21,4 +23,13 @@ class UserData {
     @NotNull
     @Column(nullable = false)
     String passwordHash
+
+    @NotNull
+    @JoinColumn(name = 'post_id')
+    @OneToMany(targetEntity = Post)
+    List<Post> posts
+
+    UserData() {
+        this.posts = new ArrayList<>()
+    }
 }
