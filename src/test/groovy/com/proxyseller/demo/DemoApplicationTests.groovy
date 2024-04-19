@@ -1,4 +1,4 @@
-package com.proxyseller.test
+package com.proxyseller.demo
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest

@@ -1,4 +1,4 @@
-package com.proxyseller.test
+package com.proxyseller.demo
 
 import com.mongodb.client.MongoClients
 import org.springframework.boot.SpringApplication

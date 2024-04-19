@@ -1,8 +1,8 @@
-package com.proxyseller.test.service
+package com.proxyseller.demo.service
 
-import com.proxyseller.test.model.FavouritePost
-import com.proxyseller.test.model.Post
-import com.proxyseller.test.repository.FavouritePostRepository
+import com.proxyseller.demo.model.FavouritePost
+import com.proxyseller.demo.model.Post
+import com.proxyseller.demo.repository.FavouritePostRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

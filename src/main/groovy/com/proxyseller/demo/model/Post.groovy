@@ -1,4 +1,4 @@
-package com.proxyseller.test.model
+package com.proxyseller.demo.model
 
 class Post {
     String id

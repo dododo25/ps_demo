@@ -1,8 +1,8 @@
-package com.proxyseller.test.controller
+package com.proxyseller.demo.controller
 
-import com.proxyseller.test.model.Subscription
-import com.proxyseller.test.service.SubscriptionService
-import com.proxyseller.test.service.UserService
+import com.proxyseller.demo.model.Subscription
+import com.proxyseller.demo.service.SubscriptionService
+import com.proxyseller.demo.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 

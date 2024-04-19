@@ -1,7 +1,7 @@
-package com.proxyseller.test.service
+package com.proxyseller.demo.service
 
-import com.proxyseller.test.model.Comment
-import com.proxyseller.test.repository.CommentRepository
+import com.proxyseller.demo.model.Comment
+import com.proxyseller.demo.repository.CommentRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 

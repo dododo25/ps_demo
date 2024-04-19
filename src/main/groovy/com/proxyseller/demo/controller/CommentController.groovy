@@ -1,9 +1,9 @@
-package com.proxyseller.test.controller
+package com.proxyseller.demo.controller
 
-import com.proxyseller.test.model.Comment
-import com.proxyseller.test.service.CommentService
-import com.proxyseller.test.service.PostService
-import com.proxyseller.test.service.UserService
+import com.proxyseller.demo.model.Comment
+import com.proxyseller.demo.service.CommentService
+import com.proxyseller.demo.service.PostService
+import com.proxyseller.demo.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PathVariable

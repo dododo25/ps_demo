@@ -1,6 +1,6 @@
-package com.proxyseller.test.repository
+package com.proxyseller.demo.repository
 
-import com.proxyseller.test.model.Post
+import com.proxyseller.demo.model.Post
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.data.mongodb.repository.Query
 import org.springframework.stereotype.Repository

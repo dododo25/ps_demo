@@ -1,8 +1,8 @@
-package com.proxyseller.test.controller
+package com.proxyseller.demo.controller
 
-import com.proxyseller.test.model.User
+import com.proxyseller.demo.model.User
 
-import com.proxyseller.test.service.UserService
+import com.proxyseller.demo.service.UserService
 import org.apache.commons.codec.digest.DigestUtils
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
