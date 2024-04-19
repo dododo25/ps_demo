@@ -15,6 +15,10 @@ class PostService {
         return repository.findAll()
     }
 
+    List<Post> findAllByUserId(long id) {
+        return repository.findAllByUserId(id)
+    }
+
     Optional<Post> findById(long id) {
         return repository.findById(id)
     }

@@ -6,6 +6,8 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
 
 @Entity
 class Post {
@@ -17,4 +19,9 @@ class Post {
     @NotNull
     @Column
     String content
+
+    @NotNull
+    @JoinColumn(name = 'userId')
+    @ManyToOne(targetEntity = UserData)
+    UserData userData
 }

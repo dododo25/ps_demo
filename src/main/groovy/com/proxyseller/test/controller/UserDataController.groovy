@@ -1,7 +1,7 @@
 package com.proxyseller.test.controller
 
 import com.proxyseller.test.model.UserData
-import com.proxyseller.test.model.UserDataEntry
+
 import com.proxyseller.test.service.UserDataService
 import org.apache.commons.codec.digest.DigestUtils
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,35 +18,42 @@ class UserDataController {
     @Autowired
     UserDataService service
 
-    @RequestMapping(method = RequestMethod.GET, path = '/user')
+    @RequestMapping(method = RequestMethod.GET, path = '/users')
     @ResponseBody
     def getAllUserData() {
         return service.findAll();
     }
 
-    @RequestMapping(method = RequestMethod.GET, path = '/user/{id}')
+    @RequestMapping(method = RequestMethod.GET, path = '/users/{id}')
     @ResponseBody
     def getUserData(@PathVariable('id') int id) {
         return service.findById(id).orElseThrow()
     }
 
-    @RequestMapping(method = RequestMethod.POST, path = '/user')
+    @RequestMapping(method = RequestMethod.POST, path = '/users')
     @ResponseBody
-    def addUserData(@RequestBody UserDataEntry entry) {
-        String passwordHash = DigestUtils.sha256Hex(entry.password)
-        return service.save(new UserData(name: entry.name, passwordHash: passwordHash))
+    def addUserData(@RequestBody UserDataEntry data) {
+        String passwordHash = DigestUtils.sha256Hex(data.password)
+        return service.save(new UserData(name: data.name, passwordHash: passwordHash))
     }
 
-    @RequestMapping(method = RequestMethod.PUT, path = '/user/{id}')
+    @RequestMapping(method = RequestMethod.PUT, path = '/users/{id}')
     @ResponseBody
-    def editUserData(@PathVariable('id') int id, @RequestBody UserDataEntry entry) {
-        String passwordHash = DigestUtils.sha256Hex(entry.password)
-        return service.save(new UserData(id: id, name: entry.name, passwordHash: passwordHash))
+    def editUserData(@PathVariable('id') int id, @RequestBody UserDataEntry data) {
+        String passwordHash = DigestUtils.sha256Hex(data.password)
+        return service.save(new UserData(id: id, name: data.name, passwordHash: passwordHash))
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, path = '/user/{id}')
+    @RequestMapping(method = RequestMethod.DELETE, path = '/users/{id}')
     @ResponseBody
     def deleteUserData(@PathVariable('id') int id) {
         service.deleteById(id)
+    }
+
+    private static class UserDataEntry {
+
+        String name
+        String password
+
     }
 }

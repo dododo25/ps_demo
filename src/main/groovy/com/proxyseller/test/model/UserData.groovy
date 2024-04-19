@@ -23,13 +23,4 @@ class UserData {
     @NotNull
     @Column(nullable = false)
     String passwordHash
-
-    @NotNull
-    @JoinColumn(name = 'post_id')
-    @OneToMany(targetEntity = Post)
-    List<Post> posts
-
-    UserData() {
-        this.posts = new ArrayList<>()
-    }
 }
