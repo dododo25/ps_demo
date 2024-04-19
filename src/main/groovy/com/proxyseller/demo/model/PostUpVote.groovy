@@ -1,6 +1,6 @@
 package com.proxyseller.demo.model
 
-class FavouritePost {
+class PostUpVote {
     User user
     Post post
 }

@@ -1,13 +1,13 @@
 package com.proxyseller.demo.repository
 
-import com.proxyseller.demo.model.FavouritePost
+import com.proxyseller.demo.model.PostUpVote
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.data.mongodb.repository.Query
 import org.springframework.stereotype.Repository
 
 @Repository
-interface FavouritePostRepository extends MongoRepository<FavouritePost, String> {
+interface PostUpVoteRepository extends MongoRepository<PostUpVote, String> {
 
     @Query(value = "{'user.id': ?0}")
-    List<FavouritePost> findAllByUserId(String userId)
+    List<PostUpVote> findAllByUserId(String userId)
 }

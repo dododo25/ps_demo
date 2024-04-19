@@ -1,17 +1,17 @@
 package com.proxyseller.demo.controller
 
-import com.proxyseller.demo.model.FavouritePost
-import com.proxyseller.demo.service.FavouritePostService
+import com.proxyseller.demo.model.PostUpVote
+import com.proxyseller.demo.service.PostUpVoteService
 import com.proxyseller.demo.service.PostService
 import com.proxyseller.demo.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
 @RestController
-class FavouritePostController {
+class PostUpVoteController {
 
     @Autowired
-    FavouritePostService favouritePostService
+    PostUpVoteService favouritePostService
 
     @Autowired
     UserService userDataService
@@ -28,7 +28,7 @@ class FavouritePostController {
     @RequestMapping(method = RequestMethod.POST, path = '/users/{userId}/favourites')
     @ResponseBody
     def addUserFavouritePost(@PathVariable('userId') String userId, @RequestParam('postId') String postId) {
-        FavouritePost favouritePost = new FavouritePost()
+        PostUpVote favouritePost = new PostUpVote()
 
         favouritePost.setUser(userDataService.findById(userId)
                 .orElseThrow())
@@ -41,7 +41,7 @@ class FavouritePostController {
     @RequestMapping(method = RequestMethod.DELETE, path = '/users/{userId}/favourites')
     @ResponseBody
     def deleteUserFavouritePost(@PathVariable('userId') String userId, @RequestParam('postId') String postId) {
-        FavouritePost favouritePost = new FavouritePost()
+        PostUpVote favouritePost = new PostUpVote()
 
         favouritePost.setUser(userDataService.findById(userId)
                 .orElseThrow())
