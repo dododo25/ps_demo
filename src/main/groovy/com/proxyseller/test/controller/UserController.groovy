@@ -21,7 +21,7 @@ class UserController {
     @RequestMapping(method = RequestMethod.GET, path = '/users')
     @ResponseBody
     def getAllUserData() {
-        return service.findAll();
+        return service.findAll()
     }
 
     @RequestMapping(method = RequestMethod.GET, path = '/users/{id}')
