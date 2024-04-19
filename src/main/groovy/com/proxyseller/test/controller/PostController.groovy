@@ -47,7 +47,7 @@ class PostController {
 
     @RequestMapping(method = RequestMethod.GET, path = '/users/{userId}/posts')
     @ResponseBody
-    Collection<Post> getAllUserPosts(@PathVariable('userId') int userId) {
+    List<Post> getAllUserPosts(@PathVariable('userId') int userId) {
         return postService.findAllByUserId(userId)
     }
 
