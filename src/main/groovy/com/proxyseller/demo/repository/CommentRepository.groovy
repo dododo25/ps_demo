@@ -8,9 +8,9 @@ import org.springframework.stereotype.Repository
 @Repository
 interface CommentRepository extends MongoRepository<Comment, String> {
 
-    @Query("{'post.id': ?0}")
+    @Query("{'post._id': ?0}")
     List<Comment> findAllByPostId(String id)
 
-    @Query("{'commenter.id': ?0}")
+    @Query("{'commenter._id': ?0}")
     List<Comment> findAllByUserId(String id)
 }

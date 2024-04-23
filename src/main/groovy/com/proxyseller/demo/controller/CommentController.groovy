@@ -40,7 +40,7 @@ class CommentController {
     @RequestMapping(method = RequestMethod.PUT, path = '/comments/{id}')
     @ResponseBody
     Comment editComment(@PathVariable('id') String id, @RequestBody Comment comment) {
-        comment.id = id
+        comment._id = id
         return commentService.save(comment)
     }
 

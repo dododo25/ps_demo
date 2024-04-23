@@ -2,6 +2,7 @@ package com.proxyseller.demo.service
 
 import com.proxyseller.demo.model.PostUpVote
 import com.proxyseller.demo.model.Post
+import com.proxyseller.demo.model.User
 import com.proxyseller.demo.repository.PostUpVoteRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -23,11 +24,22 @@ class PostUpVoteService {
                 .toList()
     }
 
+    List<User> findAllUsersByPostId(String id) {
+        return repository.findAllByPostId(id)
+                .stream()
+                .map { it.user }
+                .toList()
+    }
+
     PostUpVote save(PostUpVote entity) {
+        if (!entity.user || !entity.post) {
+            throw new NullPointerException()
+        }
+
         return repository.save(entity)
     }
 
-    void delete(PostUpVote entity) {
-        repository.delete(entity)
+    void deleteById(String id) {
+        repository.deleteById(id)
     }
 }

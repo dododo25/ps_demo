@@ -19,7 +19,15 @@ class UserService {
         return repository.findById(id)
     }
 
+    Optional<User> findByName(String name) {
+        return repository.findByName(name)
+    }
+
     User save(User entity) {
+        if (!entity.name || !entity.passwordHash) {
+            throw new NullPointerException()
+        }
+
         return repository.save(entity)
     }
 

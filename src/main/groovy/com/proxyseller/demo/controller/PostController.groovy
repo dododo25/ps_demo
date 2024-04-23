@@ -35,7 +35,7 @@ class PostController {
     @RequestMapping(method = RequestMethod.PUT, path = '/posts/{id}')
     @ResponseBody
     Post editPost(@PathVariable('id') String id, @RequestBody Post post) {
-        post.id = id
+        post._id = id
         return postService.save(post)
     }
 

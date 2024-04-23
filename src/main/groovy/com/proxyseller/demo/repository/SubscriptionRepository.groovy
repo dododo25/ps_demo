@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository
 @Repository
 interface SubscriptionRepository extends MongoRepository<Subscription, String> {
 
-    @Query("{'subscriber.id': ?0}")
-    List<Subscription> findAllByUserId(String id)
+    @Query("{'subscriber._id': ?0}")
+    List<Subscription> findAllSubscriptionsByUserId(String id)
+
+    @Query("{'targetUser._id': ?0}")
+    List<Subscription> findAllSubscribersByUserId(String id)
 }

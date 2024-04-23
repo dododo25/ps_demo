@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository
 @Repository
 interface PostRepository extends MongoRepository<Post, String> {
 
-    @Query("{'author.id': ?0}")
+    @Query("{'author._id': ?0}")
     List<Post> findAllByUserId(String userId)
 }

@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository
 @Repository
 interface PostUpVoteRepository extends MongoRepository<PostUpVote, String> {
 
-    @Query(value = "{'user.id': ?0}")
+    @Query(value = "{'user._id': ?0}")
     List<PostUpVote> findAllByUserId(String userId)
+
+    @Query(value = "{'post._id': ?0}")
+    List<PostUpVote> findAllByPostId(String postId)
 }

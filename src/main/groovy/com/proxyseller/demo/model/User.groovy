@@ -1,7 +1,9 @@
 package com.proxyseller.demo.model
 
+import org.springframework.data.annotation.Id
+
 class User {
-    String id
+    @Id String _id
     String name
     String passwordHash
 }

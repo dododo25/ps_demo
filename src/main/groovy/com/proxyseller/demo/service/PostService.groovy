@@ -24,6 +24,10 @@ class PostService {
     }
 
     Post save(Post entity) {
+        if (!entity.author || !entity.content) {
+            throw new NullPointerException()
+        }
+
         return repository.save(entity)
     }
 

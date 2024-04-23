@@ -28,6 +28,10 @@ class CommentService {
     }
 
     Comment save(Comment entity) {
+        if (!entity.post || !entity.commenter || !entity.content) {
+            throw new NullPointerException()
+        }
+
         return repository.save(entity)
     }
 
