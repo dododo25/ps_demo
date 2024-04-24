@@ -6,4 +6,5 @@ class PostUpVote {
     @Id String _id
     User user
     Post post
+    Date creationDate
 }

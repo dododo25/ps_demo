@@ -49,7 +49,7 @@ class PostUpVoteController {
             return upVote
         }
 
-        return postVoteUpService.save(new PostUpVote(user: user, post: post))
+        return postVoteUpService.save(new PostUpVote(user: user, post: post, creationDate: new Date()))
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = '/users/{userId}/favourites')

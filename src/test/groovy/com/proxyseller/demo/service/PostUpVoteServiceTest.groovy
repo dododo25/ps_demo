@@ -44,7 +44,7 @@ class PostUpVoteServiceTest extends Specification {
 
     def "should save valid upvote"() {
         given:
-        def validUpVote = new PostUpVote(user: user1, post: post1)
+        def validUpVote = new PostUpVote(user: user1, post: post1, creationDate: new Date())
 
         when:
         def savedUpVote = upvoteService.save(validUpVote)
@@ -85,8 +85,8 @@ class PostUpVoteServiceTest extends Specification {
 
     def "should find all upvoted posts by user id"() {
         given:
-        def upVote1 = new PostUpVote(user: user1, post: post1)
-        def upVote2 = new PostUpVote(user: user1, post: post2)
+        def upVote1 = new PostUpVote(user: user1, post: post1, creationDate: new Date())
+        def upVote2 = new PostUpVote(user: user1, post: post2, creationDate: new Date())
 
         upvoteService.save(upVote1)
         upvoteService.save(upVote2)
@@ -101,8 +101,8 @@ class PostUpVoteServiceTest extends Specification {
 
     def "should find all upvote users by post id"() {
         given:
-        def upVote1 = new PostUpVote(user: user1, post: post1)
-        def upVote2 = new PostUpVote(user: user2, post: post1)
+        def upVote1 = new PostUpVote(user: user1, post: post1, creationDate: new Date())
+        def upVote2 = new PostUpVote(user: user2, post: post1, creationDate: new Date())
 
         upvoteService.save(upVote1)
         upvoteService.save(upVote2)
@@ -118,7 +118,7 @@ class PostUpVoteServiceTest extends Specification {
     def "should delete upvote by id"() {
         given:
         def savedUpVote = upvoteService
-                .save(new PostUpVote(user: user1, post: post1))
+                .save(new PostUpVote(user: user1, post: post1, creationDate: new Date()))
 
         when:
         upvoteService.deleteById(savedUpVote._id)

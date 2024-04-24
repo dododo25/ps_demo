@@ -36,7 +36,7 @@ class PostUpVoteService {
     }
 
     PostUpVote save(PostUpVote entity) {
-        if (!entity.user || !entity.post) {
+        if (!entity.user || !entity.post || !entity.creationDate) {
             throw new NullPointerException()
         }
 
