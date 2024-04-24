@@ -5,6 +5,8 @@ import com.proxyseller.demo.model.User
 import com.proxyseller.demo.service.UserService
 import org.apache.commons.codec.digest.DigestUtils
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -28,13 +30,13 @@ class UserController {
     @RequestMapping(method = RequestMethod.GET, path = '/users/{id}')
     @ResponseBody
     def getUser(@PathVariable('id') String id) {
-        return service.findById(id).orElseThrow()
+        return service.findById(id).orElseGet { ResponseEntity.status(HttpStatus.BAD_REQUEST) }
     }
 
     @RequestMapping(method = RequestMethod.GET, path = '/users', params = ['name'])
     @ResponseBody
     def getUserByName(@RequestParam('name') String name) {
-        return service.findByName(name).orElseThrow()
+        return service.findByName(name).orElseGet { ResponseEntity.status(HttpStatus.BAD_REQUEST) }
     }
 
     @RequestMapping(method = RequestMethod.POST, path = '/users')

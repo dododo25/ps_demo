@@ -17,23 +17,28 @@ class SubscriptionService {
     }
 
     List<User> findAllSubscriptionsByUserId(String id) {
-        return repository.findAllSubscriptionsByUserId(id)
+        return repository.findAllSubscriptionsBySubscriberId(id)
                 .stream()
                 .map { it.targetUser }
                 .toList()
     }
 
     List<User> findAllSubscribersByUserId(String id) {
-        return repository.findAllSubscribersByUserId(id)
+        return repository.findAllSubscriptionsByTargetUserId(id)
                 .stream()
                 .map { it.subscriber }
                 .toList()
+    }
+
+    Optional<Subscription> findByTargetUserIdAndSubscriberId(String userId, String subscriberId) {
+        return repository.findByTargetUserIdAndSubscriberId(userId, subscriberId)
     }
 
     Subscription save(Subscription entity) {
         if (!entity.targetUser || !entity.subscriber) {
             throw new NullPointerException()
         }
+
         return repository.save(entity)
     }
 

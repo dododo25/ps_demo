@@ -13,4 +13,7 @@ interface PostUpVoteRepository extends MongoRepository<PostUpVote, String> {
 
     @Query(value = "{'post._id': ?0}")
     List<PostUpVote> findAllByPostId(String postId)
+
+    @Query(value = "{'post._id': ?0, 'user._id': ?1}")
+    Optional<PostUpVote> findByPostIdAndUserId(String postId, String userId)
 }

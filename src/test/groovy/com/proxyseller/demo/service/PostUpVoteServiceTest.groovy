@@ -117,8 +117,8 @@ class PostUpVoteServiceTest extends Specification {
 
     def "should delete upvote by id"() {
         given:
-        def upVote = new PostUpVote(user: user1, post: post1)
-        def savedUpVote = upvoteService.save(upVote)
+        def savedUpVote = upvoteService
+                .save(new PostUpVote(user: user1, post: post1))
 
         when:
         upvoteService.deleteById(savedUpVote._id)

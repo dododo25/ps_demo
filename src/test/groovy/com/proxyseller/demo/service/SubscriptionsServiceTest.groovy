@@ -98,25 +98,27 @@ class SubscriptionsServiceTest extends Specification {
 
     def "should find all subscribed users by user id"() {
         given:
-        def subscription1 = new Subscription(targetUser: user1, subscriber: user2)
-        subscriptionService.save(subscription1)
+        subscriptionService
+                .save(new Subscription(targetUser: user1, subscriber: user2))
 
         when:
-        def upVotes = subscriptionService.findAllSubscriptionsByUserId(user2._id)
+        def users = subscriptionService.findAllSubscriptionsByUserId(user2._id)
 
         then:
-        upVotes.stream().map { it._id }.anyMatch { it == user1._id }
+        users.stream().map { it._id }.anyMatch { it == user1._id }
     }
 
-    def "should delete upvote by id"() {
+    def "should delete subscription by id"() {
         given:
-        def subscription = new Subscription(targetUser: user1, subscriber: user2)
-        def savedSubscription = subscriptionService.save(subscription)
+        def savedSubscription = subscriptionService
+                .save(new Subscription(targetUser: user1, subscriber: user2))
 
         when:
         subscriptionService.deleteById(savedSubscription._id)
 
         then:
-        subscriptionService.findAll().stream().noneMatch { it._id == savedSubscription._id }
+        subscriptionService.findAll()
+                .stream()
+                .noneMatch { it._id == savedSubscription._id }
     }
 }

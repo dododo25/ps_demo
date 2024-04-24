@@ -31,6 +31,10 @@ class PostUpVoteService {
                 .toList()
     }
 
+    Optional<PostUpVote> findByPostIdAndUserId(String postId, String userId) {
+        return repository.findByPostIdAndUserId(postId, userId)
+    }
+
     PostUpVote save(PostUpVote entity) {
         if (!entity.user || !entity.post) {
             throw new NullPointerException()
