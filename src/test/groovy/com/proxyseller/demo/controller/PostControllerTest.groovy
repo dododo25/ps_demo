@@ -122,7 +122,8 @@ class PostControllerTest extends Specification {
 
     def "should edit existing post"() {
         given:
-        def anotherPost = new Post(_id: post._id, author: user, content: 'another_test_post_content')
+        def anotherPost = new Post(_id: post._id, author: user,
+                content: 'another_test_post_content', creationDate: new Date())
 
         when:
         def response = mockMvc.perform(put("/posts/${post._id}")

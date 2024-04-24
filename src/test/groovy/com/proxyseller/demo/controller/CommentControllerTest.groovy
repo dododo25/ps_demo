@@ -173,7 +173,7 @@ class CommentControllerTest extends Specification {
     def "should edit existing comment"() {
         given:
         def anotherComment = new Comment(_id: comment._id, commenter: user, post: post,
-                content: 'another_test_post_content')
+                content: 'another_test_post_content', creationDate: new Date())
 
         when:
         def response = mockMvc.perform(put("/comments/${comment._id}")

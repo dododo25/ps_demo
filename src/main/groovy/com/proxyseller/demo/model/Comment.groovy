@@ -7,4 +7,5 @@ class Comment {
     Post post
     User commenter
     String content
+    Date creationDate
 }

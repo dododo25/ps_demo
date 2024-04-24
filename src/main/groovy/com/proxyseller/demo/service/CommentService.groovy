@@ -28,7 +28,7 @@ class CommentService {
     }
 
     Comment save(Comment entity) {
-        if (!entity.post || !entity.commenter || !entity.content) {
+        if (!entity.post || !entity.commenter || !entity.content || !entity.creationDate) {
             throw new NullPointerException()
         }
 

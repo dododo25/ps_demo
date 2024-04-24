@@ -63,6 +63,8 @@ class PostController {
         }
 
         post.author = user
+        post.creationDate = new Date()
+
         return postService.save(post)
     }
 }

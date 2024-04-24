@@ -80,6 +80,7 @@ class CommentController {
 
         comment.commenter = commenter
         comment.post = post
+        comment.creationDate = new Date()
 
         return commentService.save(comment)
     }

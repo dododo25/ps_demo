@@ -33,7 +33,7 @@ class PostServiceTest extends Specification {
 
     def "should save valid post"() {
         given:
-        def validPost = new Post(author: user, content: 'test_post_content')
+        def validPost = new Post(author: user, content: 'test_post_content', creationDate: new Date())
 
         when:
         def savedPost = postService.save(validPost)
@@ -74,7 +74,7 @@ class PostServiceTest extends Specification {
 
     def "should find post by id"() {
         given:
-        def post = new Post(author: user, content: 'test_post_content')
+        def post = new Post(author: user, content: 'test_post_content', creationDate: new Date())
         def savedPost = postService.save(post)
 
         when:
@@ -86,8 +86,8 @@ class PostServiceTest extends Specification {
 
     def "should find all posts by user id"() {
         given:
-        def post1 = new Post(author: user, content: 'test_post_content')
-        def post2 = new Post(author: user, content: 'another_test_post_content')
+        def post1 = new Post(author: user, content: 'test_post_content', creationDate: new Date())
+        def post2 = new Post(author: user, content: 'another_test_post_content', creationDate: new Date())
         def savedPost1 = postService.save(post1)
         def savedPost2 = postService.save(post2)
 
@@ -101,7 +101,7 @@ class PostServiceTest extends Specification {
 
     def "should delete post by id"() {
         given:
-        def post = new Post(author: user, content: 'test_post_content')
+        def post = new Post(author: user, content: 'test_post_content', creationDate: new Date())
         def savedPost = postService.save(post)
 
         when:

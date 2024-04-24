@@ -6,4 +6,5 @@ class Post {
     @Id String _id
     User author
     String content
+    Date creationDate
 }

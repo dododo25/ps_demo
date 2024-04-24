@@ -24,7 +24,7 @@ class PostService {
     }
 
     Post save(Post entity) {
-        if (!entity.author || !entity.content) {
+        if (!entity.author || !entity.content || !entity.creationDate) {
             throw new NullPointerException()
         }
 

@@ -37,7 +37,8 @@ class CommentServiceTest extends Specification {
 
     def "should save valid comment"() {
         given:
-        def validComment = new Comment(post: post, commenter: user, content: 'test_comment_content')
+        def validComment = new Comment(post: post, commenter: user,
+                content: 'test_comment_content', creationDate: new Date())
 
         when:
         def savedComment = commentService.save(validComment)
@@ -48,7 +49,7 @@ class CommentServiceTest extends Specification {
 
     def "should throw exception when comment post is invalid"() {
         given:
-        def invalidComment = new Comment(commenter: user, content: 'test_comment_content')
+        def invalidComment = new Comment(commenter: user, content: 'test_comment_content', creationDate: new Date())
 
         when:
         commentService.save(invalidComment)
@@ -89,7 +90,8 @@ class CommentServiceTest extends Specification {
 
     def "should find post by id"() {
         given:
-        def comment = new Comment(post: post, commenter: user, content: 'test_comment_content')
+        def comment = new Comment(post: post, commenter: user,
+                content: 'test_comment_content', creationDate: new Date())
         def savedComment = commentService.save(comment)
 
         when:
@@ -101,8 +103,10 @@ class CommentServiceTest extends Specification {
 
     def "should find all comments by post id"() {
         given:
-        def comment1 = new Comment(post: post, commenter: user, content: 'test_comment_content')
-        def comment2 = new Comment(post: post, commenter: user, content: 'another_test_comment_content')
+        def comment1 = new Comment(post: post, commenter: user,
+                content: 'test_comment_content', creationDate: new Date())
+        def comment2 = new Comment(post: post, commenter: user,
+                content: 'another_test_comment_content', creationDate: new Date())
 
         def savedComment1 = commentService.save(comment1)
         def savedComment2 = commentService.save(comment2)
@@ -117,8 +121,10 @@ class CommentServiceTest extends Specification {
 
     def "should find all comments by user id"() {
         given:
-        def comment1 = new Comment(post: post, commenter: user, content: 'test_comment_content')
-        def comment2 = new Comment(post: post, commenter: user, content: 'another_test_comment_content')
+        def comment1 = new Comment(post: post, commenter: user,
+                content: 'test_comment_content', creationDate: new Date())
+        def comment2 = new Comment(post: post, commenter: user,
+                content: 'another_test_comment_content', creationDate: new Date())
 
         def savedComment1 = commentService.save(comment1)
         def savedComment2 = commentService.save(comment2)
@@ -133,7 +139,8 @@ class CommentServiceTest extends Specification {
 
     def "should delete comment by id"() {
         given:
-        def comment = new Comment(post: post, commenter: user, content: 'test_comment_content')
+        def comment = new Comment(post: post, commenter: user,
+                content: 'test_comment_content', creationDate: new Date())
         def savedComment = commentService.save(comment)
 
         when:
