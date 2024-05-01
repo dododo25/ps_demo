@@ -85,6 +85,15 @@ class PostControllerTest extends Specification {
                 .andExpect(jsonPath('$[\'content\']').value(post.content))
     }
 
+    def "should get 4xx error when find post by nonexistent id"() {
+        when:
+        def response = mockMvc.perform(get("/posts/${post._id}")
+                .contentType(MediaType.APPLICATION_JSON))
+
+        then:
+        response.andExpect(status().is4xxClientError())
+    }
+
     def "should get all posts by user id"() {
         given:
         def user1 = new User(_id: ObjectId.get().toHexString(), name: 'test_name',

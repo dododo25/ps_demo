@@ -1,5 +1,6 @@
 package com.proxyseller.demo.service
 
+import com.proxyseller.demo.exception.EntityNullPointerException
 import com.proxyseller.demo.model.Subscription
 import com.proxyseller.demo.model.User
 import com.proxyseller.demo.repository.SubscriptionRepository
@@ -35,8 +36,12 @@ class SubscriptionService {
     }
 
     Subscription save(Subscription entity) {
-        if (!entity.targetUser || !entity.subscriber) {
-            throw new NullPointerException()
+        if (!entity.targetUser) {
+            throw new EntityNullPointerException('null subscription targetUser value')
+        }
+
+        if (!entity.subscriber) {
+            throw new EntityNullPointerException('null subscription subscriber value')
         }
 
         return repository.save(entity)

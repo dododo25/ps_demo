@@ -100,6 +100,15 @@ class CommentControllerTest extends Specification {
                 .andExpect(jsonPath('$[\'content\']').value(comment.content))
     }
 
+    def "should get 4xx error when find comment by nonexistent id"() {
+        when:
+        def response = mockMvc.perform(get("/comments/${comment._id}")
+                .contentType(MediaType.APPLICATION_JSON))
+
+        then:
+        response.andExpect(status().is4xxClientError())
+    }
+
     def "should get all comments by user id"() {
         given:
         def user1 = new User(_id: ObjectId.get().toHexString(), name: 'test_name',

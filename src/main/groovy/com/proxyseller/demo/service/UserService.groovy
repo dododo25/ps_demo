@@ -1,5 +1,6 @@
 package com.proxyseller.demo.service
 
+import com.proxyseller.demo.exception.EntityNullPointerException
 import com.proxyseller.demo.model.User
 import com.proxyseller.demo.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -24,8 +25,12 @@ class UserService {
     }
 
     User save(User entity) {
-        if (!entity.name || !entity.passwordHash) {
-            throw new NullPointerException()
+        if (!entity.name) {
+            throw new EntityNullPointerException('null user name value')
+        }
+
+        if (!entity.passwordHash) {
+            throw new EntityNullPointerException('null user password value')
         }
 
         return repository.save(entity)

@@ -1,5 +1,6 @@
 package com.proxyseller.demo.controller
 
+import com.proxyseller.demo.exception.BadRequestException
 import com.proxyseller.demo.model.Comment
 import com.proxyseller.demo.model.Post
 import com.proxyseller.demo.model.User
@@ -7,8 +8,6 @@ import com.proxyseller.demo.service.CommentService
 import com.proxyseller.demo.service.PostService
 import com.proxyseller.demo.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
@@ -38,12 +37,12 @@ class CommentController {
     @RequestMapping(method = RequestMethod.GET, path = '/comments/{id}')
     @ResponseBody
     def getComment(@PathVariable('id') String id) {
-        return commentService.findById(id).orElseGet { ResponseEntity.status(HttpStatus.BAD_REQUEST) }
+        return commentService.findById(id).orElseThrow { new BadRequestException("unknown comment id") }
     }
 
     @RequestMapping(method = RequestMethod.PUT, path = '/comments/{id}')
     @ResponseBody
-    def editComment(@PathVariable('id') String id, @RequestBody Comment comment) {
+    def updateComment(@PathVariable('id') String id, @RequestBody Comment comment) {
         comment._id = id
         return commentService.save(comment)
     }
@@ -69,14 +68,10 @@ class CommentController {
     @RequestMapping(method = RequestMethod.POST, path = '/posts/{postId}/comments', params = ['user'])
     @ResponseBody
     def addComment(@RequestParam('user') String userId,
-                       @PathVariable('postId') String postId,
-                       @RequestBody Comment comment) {
+                   @PathVariable('postId') String postId,
+                   @RequestBody Comment comment) {
         User commenter = userService.findById(userId).orElse(null)
         Post post = postService.findById(postId).orElse(null)
-
-        if (!commenter || !post) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        }
 
         comment.commenter = commenter
         comment.post = post

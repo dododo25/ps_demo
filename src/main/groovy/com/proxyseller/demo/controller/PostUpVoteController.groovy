@@ -1,5 +1,6 @@
 package com.proxyseller.demo.controller
 
+import com.proxyseller.demo.exception.BadRequestException
 import com.proxyseller.demo.model.Post
 import com.proxyseller.demo.model.PostUpVote
 import com.proxyseller.demo.model.User
@@ -39,8 +40,12 @@ class PostUpVoteController {
         User user = userService.findById(userId).orElse(null)
         Post post = postService.findById(postId).orElse(null)
 
-        if (!user || !post) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        if (!user) {
+            throw new BadRequestException("unknown user object")
+        }
+
+        if (!post) {
+            throw new BadRequestException("unknown post object")
         }
 
         Optional<PostUpVote> upVote = postVoteUpService.findByPostIdAndUserId(postId, userId)

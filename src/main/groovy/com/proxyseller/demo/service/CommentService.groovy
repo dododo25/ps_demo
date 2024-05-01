@@ -1,5 +1,6 @@
 package com.proxyseller.demo.service
 
+import com.proxyseller.demo.exception.EntityNullPointerException
 import com.proxyseller.demo.model.Comment
 import com.proxyseller.demo.repository.CommentRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -28,7 +29,19 @@ class CommentService {
     }
 
     Comment save(Comment entity) {
-        if (!entity.post || !entity.commenter || !entity.content || !entity.creationDate) {
+        if (!entity.post) {
+            throw new EntityNullPointerException('null comment post value')
+        }
+
+        if (!entity.commenter) {
+            throw new EntityNullPointerException('null comment commenter value')
+        }
+
+        if (!entity.content) {
+            throw new EntityNullPointerException('null comment content value')
+        }
+
+        if (!entity.creationDate) {
             throw new NullPointerException()
         }
 

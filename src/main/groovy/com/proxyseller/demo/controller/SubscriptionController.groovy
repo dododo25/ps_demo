@@ -6,8 +6,6 @@ import com.proxyseller.demo.repository.SubscriptionRepository
 import com.proxyseller.demo.service.SubscriptionService
 import com.proxyseller.demo.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
@@ -39,10 +37,6 @@ class SubscriptionController {
     def addUserSubscription(@PathVariable('userId') String subscriberId, @RequestParam('target') String targetId) {
         User targetUser = userService.findById(targetId).orElse(null)
         User subscriber = userService.findById(subscriberId).orElse(null)
-
-        if (!targetUser || !subscriber) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-        }
 
         Optional<Subscription> subscription = subscriptionService
                 .findByTargetUserIdAndSubscriberId(targetId, subscriberId)
